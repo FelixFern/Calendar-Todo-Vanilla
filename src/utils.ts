@@ -1,5 +1,6 @@
 export const getNumOfDayInMonth = (currentDate: Date) => {
 	let temp = new Date(currentDate);
+	temp.getDate() === 31 ? temp.setDate(temp.getDate() - 1) : null;
 	temp.setMonth(temp.getMonth() + 1);
 
 	return Math.floor(

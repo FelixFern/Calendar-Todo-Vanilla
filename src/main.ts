@@ -56,7 +56,7 @@ const renderCalendar = () => {
 	});
 
 	const numOfDayInMonth = getNumOfDayInMonth(state().selectedDate);
-	const selectedDate = state().selectedDate.getDate();
+	let selectedDate = state().selectedDate.getDate();
 	const firstDayOfMonth = new Date(
 		`${state().shownCalendar.getFullYear()}-${
 			state().shownCalendar.getMonth() + 1
@@ -72,7 +72,11 @@ const renderCalendar = () => {
 				index >= Number(firstDayOfMonth)
 					? String(index + 1 - Number(firstDayOfMonth))
 					: "";
-			if (selectedDate === index) {
+
+			if (selectedDate > numOfDayInMonth) {
+				selectedDate = 1;
+			}
+			if (selectedDate === Number(calendarDate.innerText)) {
 				calendarDate.setAttribute("class", "selected");
 			}
 
