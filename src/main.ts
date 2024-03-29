@@ -111,7 +111,15 @@ const render = () => {
 render();
 
 // Utils
-(window as any).nextMonth = () => {
+type Util = Window &
+	typeof globalThis & {
+		nextMonth: () => void;
+		prevMonth: () => void;
+		updateSelectedDate: (val: number) => void;
+		addTodo: () => void;
+	};
+
+(window as Util).nextMonth = () => {
 	setState({
 		...state(),
 		shownCalendar: new Date(
@@ -120,7 +128,7 @@ render();
 	});
 };
 
-(window as any).prevMonth = () => {
+(window as Util).prevMonth = () => {
 	setState({
 		...state(),
 		shownCalendar: new Date(
@@ -129,7 +137,7 @@ render();
 	});
 };
 
-(window as any).updateSelectedDate = (date: number) => {
+(window as Util).updateSelectedDate = (date: number) => {
 	const updatedDate = new Date(state().selectedDate);
 	updatedDate.setDate(date);
 	setState({
@@ -138,7 +146,7 @@ render();
 	});
 };
 
-(window as any).addTodo = () => {
+(window as Util).addTodo = () => {
 	let newTodoData: any = {
 		...state().todoData,
 	};
